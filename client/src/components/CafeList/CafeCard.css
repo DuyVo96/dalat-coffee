@@ -1,0 +1,186 @@
+.cafe-card {
+  display: block;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  color: var(--text);
+  animation: fadeIn 0.5s ease;
+}
+
+.cafe-card:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-lg);
+  text-decoration: none;
+}
+
+.cafe-image {
+  height: 220px;
+  position: relative;
+  background: linear-gradient(135deg, var(--secondary) 0%, var(--primary-light) 100%);
+  overflow: hidden;
+}
+
+.cafe-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.cafe-card:hover .cafe-image img {
+  transform: scale(1.05);
+}
+
+.no-image {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-size: 48px;
+  background: linear-gradient(135deg, var(--secondary) 0%, var(--primary) 100%);
+}
+
+.photo-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.9);
+  color: var(--primary);
+  font-size: 20px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s, transform 0.2s;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+}
+
+.photo-nav:hover {
+  transform: translateY(-50%) scale(1.1);
+}
+
+.photo-nav.prev { left: 10px; }
+.photo-nav.next { right: 10px; }
+
+.cafe-card:hover .photo-nav {
+  opacity: 1;
+}
+
+.photo-dots {
+  position: absolute;
+  bottom: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 6px;
+}
+
+.dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.5);
+  transition: all 0.3s;
+}
+
+.dot.active {
+  background: white;
+  width: 18px;
+  border-radius: 3px;
+}
+
+.featured-badge {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  background: linear-gradient(135deg, #F4B942 0%, #E8A830 100%);
+  color: white;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 600;
+  box-shadow: 0 2px 10px rgba(244, 185, 66, 0.4);
+}
+
+.photo-count {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: rgba(0, 0, 0, 0.6);
+  color: white;
+  padding: 4px 10px;
+  border-radius: 15px;
+  font-size: 11px;
+  backdrop-filter: blur(5px);
+}
+
+.cafe-info {
+  padding: 18px;
+}
+
+.cafe-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 10px;
+  color: var(--text);
+  line-height: 1.3;
+}
+
+.cafe-rating {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.cafe-rating .stars {
+  color: #F4B942;
+  font-size: 14px;
+}
+
+.rating-text {
+  font-size: 13px;
+  color: var(--text-light);
+}
+
+.cafe-address {
+  font-size: 13px;
+  color: var(--text-light);
+  margin-bottom: 12px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.cafe-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.price {
+  font-weight: 600;
+  color: var(--primary);
+  font-size: 15px;
+}
+
+.features {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.feature-tag {
+  font-size: 10px;
+  padding: 4px 10px;
+  background: var(--background);
+  color: var(--text-light);
+  border-radius: 12px;
+  border: 1px solid var(--border);
+}

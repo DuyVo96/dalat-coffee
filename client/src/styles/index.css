@@ -1,0 +1,235 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@400;500;600&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  /* Da Lat color palette - misty, pine forest, cool tones */
+  --primary: #2D5A4A;         /* Pine green */
+  --primary-dark: #1E3D32;
+  --primary-light: #4A7C6A;
+  --secondary: #8FB3A5;       /* Sage/mist */
+  --accent: #D4A574;          /* Warm coffee */
+  --accent-light: #E8C9A8;
+
+  --bg-gradient: linear-gradient(135deg, #E8F0ED 0%, #F5F8F7 50%, #FDF8F3 100%);
+  --background: #F5F8F7;
+  --card-bg: rgba(255, 255, 255, 0.9);
+
+  --text: #1E3D32;
+  --text-light: #5A7A6C;
+  --text-muted: #8BA89A;
+
+  --border: #C5D9D0;
+  --white: #fff;
+
+  --shadow: 0 4px 20px rgba(45, 90, 74, 0.1);
+  --shadow-lg: 0 8px 40px rgba(45, 90, 74, 0.15);
+  --radius: 12px;
+  --radius-lg: 20px;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background: var(--bg-gradient);
+  background-attachment: fixed;
+  color: var(--text);
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+/* Pine tree pattern overlay */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 5 L35 20 L25 20 Z M30 15 L38 35 L22 35 Z M30 28 L40 50 L20 50 Z M28 50 L28 58 L32 58 L32 50 Z' fill='%232D5A4A' fill-opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 0;
+}
+
+h1, h2, h3 {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-weight: 600;
+}
+
+a {
+  color: var(--primary);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+a:hover {
+  color: var(--primary-dark);
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  font-family: inherit;
+  transition: all 0.3s ease;
+}
+
+.btn {
+  padding: 12px 24px;
+  border-radius: var(--radius);
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+  color: var(--white);
+  box-shadow: 0 4px 15px rgba(45, 90, 74, 0.3);
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(45, 90, 74, 0.4);
+}
+
+.btn-outline {
+  background: transparent;
+  border: 2px solid var(--primary);
+  color: var(--primary);
+}
+
+.btn-outline:hover {
+  background: var(--primary);
+  color: var(--white);
+}
+
+input, select, textarea {
+  padding: 12px 16px;
+  border: 2px solid var(--border);
+  border-radius: var(--radius);
+  font-size: 14px;
+  width: 100%;
+  background: var(--white);
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+input:focus, select:focus, textarea:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 4px rgba(45, 90, 74, 0.1);
+}
+
+.container {
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 0 24px;
+  position: relative;
+  z-index: 1;
+}
+
+/* Star Rating */
+.stars {
+  color: #F4B942;
+  font-size: 14px;
+  letter-spacing: 1px;
+}
+
+.stars .empty {
+  color: var(--border);
+}
+
+/* Tags */
+.tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 14px;
+  background: linear-gradient(135deg, var(--secondary) 0%, #A8C9BC 100%);
+  color: var(--primary-dark);
+  border-radius: 25px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+/* Card */
+.card {
+  background: var(--card-bg);
+  backdrop-filter: blur(10px);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+/* Map Container */
+.map-container {
+  height: 450px;
+  width: 100%;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+}
+
+.leaflet-container {
+  height: 100%;
+  width: 100%;
+}
+
+/* Grid */
+.grid {
+  display: grid;
+  gap: 24px;
+}
+
+.grid-3 {
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+}
+
+.grid-2 {
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--background);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--secondary);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary-light);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .container {
+    padding: 0 16px;
+  }
+
+  .map-container {
+    height: 300px;
+  }
+
+  .grid-3, .grid-2 {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}

@@ -1,0 +1,158 @@
+.layout {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.header-bg {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(45, 90, 74, 0.95) 0%, rgba(74, 124, 106, 0.9) 100%);
+  z-index: -1;
+}
+
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 70px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: white;
+}
+
+.logo:hover {
+  text-decoration: none;
+  color: white;
+}
+
+.logo-icon {
+  font-size: 32px;
+  animation: float 3s ease-in-out infinite;
+}
+
+.logo-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.logo-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+.logo-sub {
+  font-size: 11px;
+  opacity: 0.8;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.nav-item {
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 14px;
+}
+
+.weather {
+  background: rgba(255, 255, 255, 0.15);
+  padding: 8px 16px;
+  border-radius: 25px;
+  color: white;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.main {
+  flex: 1;
+  padding: 30px 0;
+}
+
+.footer {
+  background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
+  color: white;
+  padding: 40px 0;
+  margin-top: 60px;
+}
+
+.footer-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.footer-brand {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.footer-logo {
+  font-size: 28px;
+  margin-bottom: 5px;
+}
+
+.footer-brand p {
+  font-family: 'Playfair Display', serif;
+  font-size: 18px;
+}
+
+.footer-tagline {
+  font-size: 13px !important;
+  opacity: 0.7;
+  font-family: 'Inter', sans-serif !important;
+}
+
+.footer-links {
+  text-align: right;
+  font-size: 14px;
+  opacity: 0.8;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-3px); }
+}
+
+@media (max-width: 768px) {
+  .header-content {
+    height: 60px;
+  }
+
+  .logo-title {
+    font-size: 18px;
+  }
+
+  .logo-sub {
+    display: none;
+  }
+
+  .footer-content {
+    flex-direction: column;
+    text-align: center;
+    gap: 20px;
+  }
+
+  .footer-links {
+    text-align: center;
+  }
+}
