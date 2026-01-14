@@ -13,11 +13,16 @@ const FEATURES = [
   { key: 'liveMusic', label: 'Nhạc sống/Acoustic', icon: '🎸' }
 ]
 
+const CLOUDINARY_CLOUD_NAME = 'dgi3ayg8f'
+const CLOUDINARY_UPLOAD_PRESET = 'dalat-coffee'
+
 function AddCafe() {
   const navigate = useNavigate()
   const [loading, setLoading] = useState(false)
   const [success, setSuccess] = useState(false)
   const [error, setError] = useState('')
+  const [photos, setPhotos] = useState([])
+  const [uploading, setUploading] = useState(false)
 
   const [form, setForm] = useState({
     name: '',
@@ -25,7 +30,6 @@ function AddCafe() {
     phone: '',
     description: '',
     priceRange: '$$',
-    photoUrls: '',
     features: {
       wifi: false,
       view: false,
@@ -54,18 +58,70 @@ function AddCafe() {
     }))
   }
 
+  const openUploadWidget = () => {
+    window.cloudinary.openUploadWidget(
+      {
+        cloudName: CLOUDINARY_CLOUD_NAME,
+        uploadPreset: CLOUDINARY_UPLOAD_PRESET,
+        sources: ['local', 'camera', 'url'],
+        multiple: true,
+        maxFiles: 10,
+        resourceType: 'image',
+        clientAllowedFormats: ['jpg', 'jpeg', 'png', 'webp'],
+        maxFileSize: 10000000, // 10MB
+        language: 'vi',
+        text: {
+          vi: {
+            menu: {
+              files: 'Từ máy tính',
+              camera: 'Camera',
+              url: 'Link URL'
+            },
+            local: {
+              browse: 'Chọn ảnh',
+              dd_title_single: 'Kéo thả ảnh vào đây',
+              dd_title_multi: 'Kéo thả ảnh vào đây',
+              drop_title_single: 'Thả ảnh để tải lên',
+              drop_title_multiple: 'Thả ảnh để tải lên'
+            }
+          }
+        },
+        styles: {
+          palette: {
+            window: '#FFFFFF',
+            windowBorder: '#2D5A4A',
+            tabIcon: '#2D5A4A',
+            menuIcons: '#2D5A4A',
+            textDark: '#000000',
+            textLight: '#FFFFFF',
+            link: '#2D5A4A',
+            action: '#2D5A4A',
+            inactiveTabIcon: '#8BA89A',
+            error: '#dc2626',
+            inProgress: '#2D5A4A',
+            complete: '#2D5A4A',
+            sourceBg: '#F5F8F7'
+          }
+        }
+      },
+      (error, result) => {
+        if (!error && result && result.event === 'success') {
+          setPhotos(prev => [...prev, result.info.secure_url])
+        }
+      }
+    )
+  }
+
+  const removePhoto = (index) => {
+    setPhotos(prev => prev.filter((_, i) => i !== index))
+  }
+
   const handleSubmit = async (e) => {
     e.preventDefault()
     setLoading(true)
     setError('')
 
     try {
-      // Parse photo URLs (one per line)
-      const photos = form.photoUrls
-        .split('\n')
-        .map(url => url.trim())
-        .filter(url => url.length > 0)
-
       const cafeData = {
         name: form.name,
         address: form.address,
@@ -176,19 +232,34 @@ function AddCafe() {
 
           <div className="form-section">
             <h3>📷 Hình ảnh</h3>
-            <div className="form-group">
-              <label>Link hình ảnh (mỗi link một dòng)</label>
-              <textarea
-                name="photoUrls"
-                value={form.photoUrls}
-                onChange={handleChange}
-                placeholder="https://example.com/photo1.jpg&#10;https://example.com/photo2.jpg&#10;https://example.com/photo3.jpg"
-                rows={4}
-              />
-              <span className="form-hint">
-                💡 Đăng ảnh lên Facebook/Google Drive rồi copy link, hoặc dùng link từ Google Maps
-              </span>
+
+            <div className="photo-upload-area">
+              <button type="button" className="upload-btn" onClick={openUploadWidget}>
+                📤 Tải ảnh lên
+              </button>
+              <span className="upload-hint">Chọn tối đa 10 ảnh (JPG, PNG - dưới 10MB)</span>
             </div>
+
+            {photos.length > 0 && (
+              <div className="photo-preview-grid">
+                {photos.map((url, index) => (
+                  <div key={index} className="photo-preview-item">
+                    <img src={url} alt={`Ảnh ${index + 1}`} />
+                    <button
+                      type="button"
+                      className="remove-photo-btn"
+                      onClick={() => removePhoto(index)}
+                    >
+                      ✕
+                    </button>
+                  </div>
+                ))}
+              </div>
+            )}
+
+            {photos.length === 0 && (
+              <p className="no-photos-hint">Chưa có ảnh nào được tải lên</p>
+            )}
           </div>
 
           <div className="form-section">
