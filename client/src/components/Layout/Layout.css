@@ -68,18 +68,21 @@
   gap: 20px;
 }
 
-.nav-item {
-  color: rgba(255, 255, 255, 0.9);
-  font-size: 14px;
-}
-
-.weather {
-  background: rgba(255, 255, 255, 0.15);
-  padding: 8px 16px;
+.nav-btn {
+  background: rgba(255, 255, 255, 0.2);
+  padding: 10px 20px;
   border-radius: 25px;
   color: white;
   font-size: 14px;
-  font-weight: 500;
+  font-weight: 600;
+  transition: all 0.2s;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+.nav-btn:hover {
+  background: white;
+  color: var(--primary);
+  text-decoration: none;
 }
 
 .main {

@@ -15,8 +15,7 @@ function Layout({ children }) {
             </div>
           </Link>
           <nav className="nav">
-            <span className="nav-item">☕ {new Date().toLocaleDateString('vi-VN')}</span>
-            <span className="weather">🌤 18°C</span>
+            <Link to="/add-cafe" className="nav-btn">+ Thêm quán</Link>
           </nav>
         </div>
       </header>

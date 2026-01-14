@@ -80,6 +80,62 @@ router.get('/', async (req, res) => {
   }
 });
 
+// Submit a new cafe (from cafe owners)
+router.post('/submit', async (req, res) => {
+  try {
+    const {
+      name,
+      address,
+      phone,
+      description,
+      priceRange,
+      photos,
+      features,
+      ownerName,
+      ownerPhone
+    } = req.body;
+
+    if (!name || !address || !ownerName || !ownerPhone) {
+      return res.status(400).json({ message: 'Vui lòng điền đầy đủ thông tin bắt buộc' });
+    }
+
+    // Default location (center of Da Lat) - can be updated later
+    const defaultLocation = {
+      type: 'Point',
+      coordinates: [108.4378, 11.9404]
+    };
+
+    const cafe = new Cafe({
+      name,
+      address,
+      phone: phone || '',
+      description: description || `${name} - Quán cà phê tại Đà Lạt`,
+      priceRange: priceRange || '$$',
+      photos: photos || [],
+      features: features || { wifi: true },
+      location: defaultLocation,
+      tags: ['coffee', 'da-lat', 'user-submitted'],
+      averageRating: 0,
+      totalReviews: 0,
+      featured: false,
+      verified: false,
+      ownerInfo: {
+        name: ownerName,
+        phone: ownerPhone
+      }
+    });
+
+    await cafe.save();
+
+    res.status(201).json({
+      message: 'Đăng ký thành công! Quán của bạn sẽ được xem xét và thêm vào danh sách.',
+      cafe: { name: cafe.name, slug: cafe.slug }
+    });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
 // Get single cafe by slug
 router.get('/:slug', async (req, res) => {
   try {
