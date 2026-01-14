@@ -40,7 +40,7 @@ function Admin() {
   const fetchCafes = async () => {
     setLoading(true)
     try {
-      const res = await api.get('/cafes?limit=200')
+      const res = await api.get('/cafes?limit=200&showAll=true')
       let filtered = res.data.cafes
 
       if (filter === 'pending') {

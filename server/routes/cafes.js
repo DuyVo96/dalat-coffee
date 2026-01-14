@@ -26,6 +26,11 @@ router.get('/', async (req, res) => {
 
     const query = {};
 
+    // Only show verified cafes on public page (unless admin requests all)
+    if (req.query.showAll !== 'true') {
+      query.verified = true;
+    }
+
     // Text search
     if (search) {
       query.$text = { $search: search };
@@ -154,7 +159,7 @@ router.get('/:slug', async (req, res) => {
 // Get cafes for map (minimal data)
 router.get('/map/markers', async (req, res) => {
   try {
-    const cafes = await Cafe.find({}, {
+    const cafes = await Cafe.find({ verified: true }, {
       name: 1,
       slug: 1,
       location: 1,
