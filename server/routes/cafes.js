@@ -195,6 +195,16 @@ router.post('/:id/save', auth, async (req, res) => {
   }
 });
 
+// Verify ALL cafes (admin - one time use)
+router.post('/verify-all', async (req, res) => {
+  try {
+    const result = await Cafe.updateMany({}, { verified: true });
+    res.json({ message: `Verified ${result.modifiedCount} cafes` });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
 // Verify a cafe (admin)
 router.patch('/:id/verify', async (req, res) => {
   try {
