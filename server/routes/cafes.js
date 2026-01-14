@@ -190,4 +190,55 @@ router.post('/:id/save', auth, async (req, res) => {
   }
 });
 
+// Verify a cafe (admin)
+router.patch('/:id/verify', async (req, res) => {
+  try {
+    const cafe = await Cafe.findByIdAndUpdate(
+      req.params.id,
+      { verified: true, featured: false },
+      { new: true }
+    );
+    if (!cafe) {
+      return res.status(404).json({ message: 'Cafe not found' });
+    }
+    res.json({ message: 'Cafe verified', cafe });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
+// Update a cafe (admin)
+router.patch('/:id', async (req, res) => {
+  try {
+    const updates = req.body;
+    const cafe = await Cafe.findByIdAndUpdate(
+      req.params.id,
+      updates,
+      { new: true, runValidators: true }
+    );
+    if (!cafe) {
+      return res.status(404).json({ message: 'Cafe not found' });
+    }
+    res.json({ message: 'Cafe updated', cafe });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
+// Delete a cafe (admin)
+router.delete('/:id', async (req, res) => {
+  try {
+    const cafe = await Cafe.findByIdAndDelete(req.params.id);
+    if (!cafe) {
+      return res.status(404).json({ message: 'Cafe not found' });
+    }
+    // Also delete related reviews
+    const Review = require('../models/Review');
+    await Review.deleteMany({ cafe: req.params.id });
+    res.json({ message: 'Cafe deleted' });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
 module.exports = router;
