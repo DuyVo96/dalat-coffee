@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://client-liart-zeta-36.vercel.app/sitemap.xml
